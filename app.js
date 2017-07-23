@@ -5,9 +5,16 @@ const routes = require('./routes/routes');
 const app = express();
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/uberdata');
+if (process.env.NODE_ENV !== 'test') {
+    mongoose.connect('mongodb://localhost/uberdata');
+}
+
 
 app.use(bodyParser.json());
 routes(app);
+
+app.use((err, req, res, next) => {
+    res.status(422).send({error: err.message}); //http status 422 replace 200 as in error 
+});
 
 module.exports = app;
