@@ -15,7 +15,7 @@ describe('Driver controller', () => {
 
             Driver.count().then(newCount => {
                 assert(count + 1 === newCount);
-                done('PUT to /api/drivers/id edits an existing driver', done);
+                done();
                 });
             });
         });
